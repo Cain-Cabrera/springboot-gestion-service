@@ -4,7 +4,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import java.util.List;
 import lombok.Getter;
@@ -24,8 +23,7 @@ public class Cliente {
     private String nombre;
     private String apellido;
     private int dni;
-    @OneToMany
-    @JoinColumn(referencedColumnName = "id_cliente")
+    @OneToMany(mappedBy = "cliente")
     private List<Pedido> listaDePedidos;
 
     public Cliente() {
