@@ -8,7 +8,7 @@ import com.proyecto.GestionDePedidos.models.Cliente;
  */
 public class ClienteMapper {
     
-    public Cliente mapToEntity(ClienteDTO clientedto) {
+    public Cliente mapperCreateEntidad(ClienteDTO clientedto) {
         Cliente clienteEntity = new Cliente();
         clienteEntity.setNombre(clientedto.getNombre());
         clienteEntity.setApellido(clientedto.getApellido());
@@ -16,5 +16,11 @@ public class ClienteMapper {
         
         return clienteEntity;
     }
+    
+    public void mapperUpdateEntidad(ClienteDTO dto, Cliente clienteExistente) {
+    clienteExistente.setNombre(dto.getNombre());
+    clienteExistente.setApellido(dto.getApellido());
+    clienteExistente.setDni(dto.getDni());
+}
     
 }
