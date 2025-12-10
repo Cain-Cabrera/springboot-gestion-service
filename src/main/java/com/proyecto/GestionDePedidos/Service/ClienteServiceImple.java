@@ -3,7 +3,7 @@ package com.proyecto.GestionDePedidos.Service;
 import com.proyecto.GestionDePedidos.DTO.ClienteDTO;
 import com.proyecto.GestionDePedidos.Mapper.ClienteMapper;
 import com.proyecto.GestionDePedidos.Repository.ClienteRepository;
-import com.proyecto.GestionDePedidos.Validator.ClienteValidator;
+import com.proyecto.GestionDePedidos.validatorService.ClienteValidator;
 import com.proyecto.GestionDePedidos.models.Cliente;
 import java.util.List;
 import org.slf4j.Logger;
