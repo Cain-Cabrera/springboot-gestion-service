@@ -1,6 +1,7 @@
 package com.proyecto.GestionDePedidos.Service;
 
 import com.proyecto.GestionDePedidos.DTO.ClienteDTO;
+import com.proyecto.GestionDePedidos.DTO.ClienteResponseDTO;
 import com.proyecto.GestionDePedidos.Mapper.ClienteMapper;
 import com.proyecto.GestionDePedidos.Repository.ClienteRepository;
 import com.proyecto.GestionDePedidos.validatorService.ClienteValidator;
@@ -29,23 +30,25 @@ public class ClienteServiceImple implements ClienteService {
     }
 
     @Override
-    public Cliente createCliente(ClienteDTO clienteDto) {
+    public ClienteResponseDTO createCliente(ClienteDTO clienteDto) {
         logger.trace("Se ejecuta metodo createCliente para dar de alta una entidad Cliente");
         clienteValidator.validarClienteDTO(clienteDto);
         Cliente cliente = clienteMapper.mapperCreateEntidad(clienteDto);
+        clienteRepository.save(cliente);
         logger.info("Cliente dado de alta con exito..");
-        return clienteRepository.save(cliente);
+        return clienteMapper.toResponse(cliente);
     }
 
     @Override
-    public Cliente updateCliente(Long id, ClienteDTO clienteDto) {
+    public ClienteResponseDTO updateCliente(Long id, ClienteDTO clienteDto) {
         logger.trace("Se ejecuta updateCliente para actualizar informacion del cliente..");
         Cliente clienteExistente = clienteRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Cliente no encontrado."));
         clienteValidator.validarClienteDTO(clienteDto);
         clienteMapper.mapperUpdateEntidad(clienteDto, clienteExistente);
+        clienteRepository.save(clienteExistente);
         logger.info("Cliente con id {} actualizado con exito..", id );
-        return clienteRepository.save(clienteExistente);
+        return clienteMapper.toResponse(clienteExistente);
     }
 
     @Override
@@ -56,7 +59,7 @@ public class ClienteServiceImple implements ClienteService {
             throw new IllegalArgumentException("El id debe ser mayor a 0");
         }
         
-        Cliente cliente = findById(id);
+        Cliente cliente = findByIdEntity(id);
         clienteRepository.deleteById(id);
         logger.info("Cliente con id {} borrado con exito.. ", id);  
     }
@@ -68,7 +71,15 @@ public class ClienteServiceImple implements ClienteService {
     }
 
     @Override
-    public Cliente findById(Long id) {
+    public ClienteResponseDTO findById(Long id) {
+        logger.trace("Se ejecuta medoto findById para buscar un Cliente..");
+        Cliente cliente = clienteRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Cliente no encontrado"));
+        return clienteMapper.toResponse(cliente);
+    }
+
+    @Override
+    public Cliente findByIdEntity(Long id) {
         logger.trace("Se ejecuta medoto findById para buscar un Cliente..");
         return clienteRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Cliente no encontrado"));

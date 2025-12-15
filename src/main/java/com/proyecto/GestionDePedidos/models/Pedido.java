@@ -1,5 +1,6 @@
 package com.proyecto.GestionDePedidos.models;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -31,9 +32,9 @@ public class Pedido {
     @JoinColumn(name = "id_cliente")
     private Cliente cliente;
     
-    @OneToMany(mappedBy = "pedido")
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
     private List<DetalleDePedido> detalleDelPedido;
-
+    
     public Pedido() {
     }
 

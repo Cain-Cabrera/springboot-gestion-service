@@ -9,5 +9,4 @@ public class GestionDePedidosApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(GestionDePedidosApplication.class, args);
 	}
-
 }

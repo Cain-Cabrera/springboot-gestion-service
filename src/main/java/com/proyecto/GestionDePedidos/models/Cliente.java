@@ -35,8 +35,6 @@ public class Cliente {
         this.dni = dni;
         this.listaDePedidos = listaDePedidos;
     }
-    
-    
 }
     
 
