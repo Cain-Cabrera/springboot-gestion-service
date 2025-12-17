@@ -1,6 +1,6 @@
 package com.proyecto.GestionDePedidos.validatorService;
 
-import com.proyecto.GestionDePedidos.DTO.ClienteDTO;
+import com.proyecto.GestionDePedidos.DTO.ClienteRequestDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -14,7 +14,7 @@ public class ClienteValidator {
     private static final Logger logger = LoggerFactory.getLogger(ClienteValidator.class);
      
     
-    public void validarClienteDTO(ClienteDTO clienteDto) {
+    public void validarClienteDTO(ClienteRequestDTO clienteDto) {
         logger.trace("Se ejecuta validarAlta para validar Logica de negocio..");
         
         if (clienteDto == null) {
