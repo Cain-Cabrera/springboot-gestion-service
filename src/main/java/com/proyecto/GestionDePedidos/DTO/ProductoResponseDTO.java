@@ -1,8 +1,13 @@
 package com.proyecto.GestionDePedidos.DTO;
+
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  *
  * @author Cain
  */
+@Setter @Getter
 public class ProductoResponseDTO {
     private Long id;
     private String nombre;

@@ -1,6 +1,5 @@
 package com.proyecto.GestionDePedidos.DTO;
 
-import com.proyecto.GestionDePedidos.models.Cliente;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -12,7 +11,7 @@ import lombok.Setter;
  */
 
 @Setter @Getter
-public class ClienteDTO {
+public class ClienteRequestDTO {
     
     @NotBlank
     private String nombre;
@@ -23,10 +22,12 @@ public class ClienteDTO {
     @Size(min = 8,max = 8)
     private String dni;
 
-    public ClienteDTO(Cliente cliente) {
-        this.nombre = cliente.getNombre();
-        this.apellido = cliente.getApellido();
-        this.dni = cliente.getDni();
+    public ClienteRequestDTO(String nombre, String apellido, String dni) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.dni = dni;
     }
+
+    
 
 }

@@ -16,16 +16,15 @@ public class PedidoResponseDTO {
     private Long idPedido;
     private LocalDate fecha;
     private EstadoPedido estado;
-    private ClienteDTO cliente;
+    private Long idCliente;
 
     public PedidoResponseDTO() {
-    }
+    }  
 
-    public PedidoResponseDTO(Long idPedido, LocalDate fecha, EstadoPedido estado, ClienteDTO cliente) {
+    public PedidoResponseDTO(Long idPedido, LocalDate fecha, EstadoPedido estado, Long idCliente) {
         this.idPedido = idPedido;
         this.fecha = fecha;
         this.estado = estado;
-        this.cliente = cliente;
+        this.idCliente = idCliente;
     }
-
 }
