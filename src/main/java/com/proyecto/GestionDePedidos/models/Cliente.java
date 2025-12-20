@@ -1,5 +1,6 @@
 package com.proyecto.GestionDePedidos.models;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,7 +23,7 @@ public class Cliente {
     private String nombre;
     private String apellido;
     private String dni;
-    @OneToMany(mappedBy = "cliente")
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Pedido> listaDePedidos;
 
     public Cliente() {

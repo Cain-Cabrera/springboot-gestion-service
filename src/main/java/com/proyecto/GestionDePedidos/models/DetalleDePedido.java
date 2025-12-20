@@ -27,7 +27,7 @@ public class DetalleDePedido {
     private Double precioUnitario;
     
     @ManyToOne
-    @JoinColumn(name = "id_pedido")
+    @JoinColumn(name = "id_pedido", nullable = false)
     private Pedido pedido;
     
     @ManyToOne

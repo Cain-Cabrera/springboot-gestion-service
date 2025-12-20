@@ -29,10 +29,10 @@ public class Pedido {
     private EstadoPedido estado;
     
     @ManyToOne
-    @JoinColumn(name = "id_cliente")
+    @JoinColumn(name = "id_cliente", nullable = false)
     private Cliente cliente;
     
-    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DetalleDePedido> detalleDelPedido;
     
     public Pedido() {
