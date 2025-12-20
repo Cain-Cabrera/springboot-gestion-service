@@ -17,7 +17,12 @@ public class DetallePedidoRequestDTO {
     @NotNull
     @Min(1)
     private Integer cantidad;
+    
+    public DetallePedidoRequestDTO() {
+    }
 
-    public DetallePedidoRequestDTO() {}
-
+    public DetallePedidoRequestDTO(Long idProducto, Integer cantidad) {
+        this.idProducto = idProducto;
+        this.cantidad = cantidad;
+    } 
 }

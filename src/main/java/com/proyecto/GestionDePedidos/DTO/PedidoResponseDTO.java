@@ -14,9 +14,10 @@ import lombok.Setter;
 public class PedidoResponseDTO {
 
     private Long idPedido;
+    private Long idCliente;
     private LocalDate fecha;
     private EstadoPedido estado;
-    private Long idCliente;
+    
 
     public PedidoResponseDTO() {
     }  

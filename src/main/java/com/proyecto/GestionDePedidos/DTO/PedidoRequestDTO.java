@@ -1,8 +1,6 @@
 package com.proyecto.GestionDePedidos.DTO;
 
-import com.proyecto.GestionDePedidos.models.EstadoPedido;
 import jakarta.validation.constraints.NotNull;
-import java.time.LocalDate;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,11 +11,7 @@ import lombok.Setter;
  */
 @Setter @Getter
 public class PedidoRequestDTO {
-    
-    @NotNull
-    private LocalDate fecha;
-    @NotNull
-    private EstadoPedido estado;
+
     @NotNull
     private Long idCliente;
     @NotNull
@@ -25,10 +19,11 @@ public class PedidoRequestDTO {
     
     public PedidoRequestDTO() {
     }
-    
-    public PedidoRequestDTO(LocalDate fecha, EstadoPedido estado, Long idCliente) {
-        this.fecha = fecha;
-        this.estado = estado;
+
+    public PedidoRequestDTO(Long idCliente, Long idProducto, List<DetallePedidoRequestDTO> detalles) {
         this.idCliente = idCliente;
+        this.detalles = detalles;
     }
+    
+   
 }
