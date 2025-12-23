@@ -3,6 +3,10 @@ package com.proyecto.GestionDePedidos.Service;
 import com.proyecto.GestionDePedidos.DTO.DetallePedidoRequestDTO;
 import com.proyecto.GestionDePedidos.DTO.PedidoRequestDTO;
 import com.proyecto.GestionDePedidos.DTO.PedidoResponseDTO;
+import com.proyecto.GestionDePedidos.Exception.InsufficientStockException;
+import com.proyecto.GestionDePedidos.Exception.InvalidIdException;
+import com.proyecto.GestionDePedidos.Exception.PedidoNotFoundException;
+import com.proyecto.GestionDePedidos.Exception.ProductoNotFoundException;
 import com.proyecto.GestionDePedidos.Mapper.PedidoMapper;
 import com.proyecto.GestionDePedidos.Repository.ClienteRepository;
 import com.proyecto.GestionDePedidos.Repository.PedidoRepository;
@@ -13,7 +17,6 @@ import com.proyecto.GestionDePedidos.models.EstadoPedido;
 import com.proyecto.GestionDePedidos.models.Pedido;
 import com.proyecto.GestionDePedidos.models.Producto;
 import com.proyecto.GestionDePedidos.validatorService.PedidoValidator;
-import jakarta.persistence.EntityNotFoundException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +49,7 @@ public class PedidoServiceImple implements PedidoService {
 
     private Pedido findbyIdPedidoEntity(Long id) {
         return pedidoRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("El pedido no existe"));
+                .orElseThrow(() -> new InvalidIdException("Pedido",id));
     }
 
     @Override
@@ -54,7 +57,7 @@ public class PedidoServiceImple implements PedidoService {
         logger.trace("Se ejecuta createPedido para crear nuevo Pedido asociado a un cliente..");
         validatorPedido.validarAltaPedido(pedidoDto);
         Cliente clienteExistente = clienteRepository.findById(pedidoDto.getIdCliente())
-                .orElseThrow(() -> new EntityNotFoundException("Cliente no encontrado."));
+                .orElseThrow(() -> new PedidoNotFoundException(pedidoDto.getIdCliente()));
         Pedido pedido = new Pedido();
         pedido.setCliente(clienteExistente);
         pedido.setFecha(LocalDate.now());
@@ -65,10 +68,10 @@ public class PedidoServiceImple implements PedidoService {
         for (DetallePedidoRequestDTO detalleDto : pedidoDto.getDetalles()) {
 
             Producto producto = productoRepository.findById(detalleDto.getIdProducto())
-                    .orElseThrow(() -> new EntityNotFoundException("Producto no encontrado"));
+                    .orElseThrow(() -> new ProductoNotFoundException(detalleDto.getIdProducto()));
 
             if (producto.getStock() < detalleDto.getCantidad()) {
-                throw new IllegalArgumentException("Stock insuficiente para el producto: " + producto.getNombre());
+                throw new InsufficientStockException(producto.getNombre());
             }
 
             DetalleDePedido detalle = new DetalleDePedido();
@@ -106,7 +109,7 @@ public class PedidoServiceImple implements PedidoService {
         logger.trace("Se ejecuta deletePedido para borrar Pedido..");
         if (id <= 0) {
             logger.error("ID inválido para borrar Pedido: {}", id);
-            throw new IllegalArgumentException("El id debe ser mayor a 0");
+            throw new InvalidIdException("Pedido", id);
         }
         Pedido pedido = findbyIdPedidoEntity(id);
         pedidoRepository.deleteById(id);
