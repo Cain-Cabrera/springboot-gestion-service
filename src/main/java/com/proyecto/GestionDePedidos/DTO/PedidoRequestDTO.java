@@ -23,7 +23,5 @@ public class PedidoRequestDTO {
     public PedidoRequestDTO(Long idCliente, Long idProducto, List<DetallePedidoRequestDTO> detalles) {
         this.idCliente = idCliente;
         this.detalles = detalles;
-    }
-    
-   
+    }   
 }
